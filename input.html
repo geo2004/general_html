@@ -112,17 +112,6 @@ button[type="submit"]:hover {
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>
-			function convertUrl(url) {
-    // Check if the URL contains 'github.io'
-    if (url.includes('github.io')) {
-        // Get the query parameters from the URL
-        const params = new URLSearchParams(window.location.search);
-        // Construct the new URL
-        url = `https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures?${params.toString()}`;
-    }
-    return url;
-}
-			
 			function submitForm() {
   var id = $('#id').val();
   var total_wakt = $('#total_wakt').val();
@@ -131,26 +120,51 @@ button[type="submit"]:hover {
   var rencana_fi = $('#rencana_fi').val();
   var realisasi_ = $('#realisasi_').val();
   var deviasi = $('#deviasi').val();
-  var tanggal_up = new Date($('#tanggal_up').val()).getTime();
-  var nama_rusun = $('#nama_rusun').val();
+  var tanggal_up = $('#tanggal_up').val();
 
-  var apiUrl = 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures';
-  var queryParams = 'id=' + id + '&total_wakt=' + total_wakt + '&waktu_berj=' + waktu_berj + '&sisa_waktu=' + sisa_waktu + '&rencana_fi=' + rencana_fi + '&realisasi_=' + realisasi_ + '&deviasi=' + deviasi + '&tanggal_up=' + tanggal_up + '&nama_rusun=' + nama_rusun;
+  // Construct the URL for submitting the form data
+  var url = 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures';
 
-  var formSubmissionUrl = apiUrl + '?' + queryParams;
-
-  $.ajax({
-    type: 'POST',
-    url: formSubmissionUrl,
-    success: function(data) {
-      alert('Data has been submitted successfully');
-      document.getElementById('myForm').reset();
-    },
-    error: function(xhr, status, error) {
-      alert('Error: ' + error.message);
+  // Construct the data to be submitted
+  var data = {
+    'attributes': {
+      'ID_RUSUN': id,
+      'TOTAL_WAKT': total_wakt,
+      'WAKTU_BERJ': waktu_berj,
+      'SISA_WAKTU': sisa_waktu,
+      'RENCANA_FI': rencana_fi,
+      'REALISASI_': realisasi_,
+      'DEVIASI': deviasi,
+      'TANGGAL_UP': tanggal_up
     }
-  });
+  };
+
+  // Convert the URL if the form is hosted on GitHub Pages
+  url = convertUrl(url);
+
+  // Send the POST request to submit the form data
+  $.post(url, data)
+    .done(function(response) {
+      alert('Form data has been submitted successfully!');
+    })
+    .fail(function(error) {
+      alert('An error occurred while submitting the form data.');
+      console.log(error);
+    });
 }
+
+function convertUrl(url) {
+  // Check if the URL contains 'github.io'
+  if (url.includes('github.io')) {
+    // Get the query parameters from the URL
+    const params = new URLSearchParams(window.location.search);
+    // Construct the new URL
+    url = `https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures?${params.toString()}`;
+  }
+  return url;
+}
+
+
 
 		</script>
 	</body>
