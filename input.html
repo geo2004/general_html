@@ -105,7 +105,7 @@ button[type="submit"]:hover {
 
 			<label for="nama_rusun">Nama Rusun:</label>
 			<p class="input-description">Nama Rusun sudah otomatis terisi dan terkunci, tidak perlu diinput</p>
-		 <input type="text" id="id" name="id" value="Rusun YPG Karangsambung" readonly><br>
+		 <input type="text" id="nama_rusun" name="id" value="Rusun YPG Karangsambung" readonly><br>
 
 			<button type="submit" onclick="submitForm()">Submit</button>
 		</form>
@@ -132,7 +132,7 @@ button[type="submit"]:hover {
 					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
 					data: JSON.stringify(formData),
 					contentType: "application/json",
-					dataType: 'json',
+					dataType: 'jsonp',
 					success: function (data) {
 						alert('Data has been submitted successfully');
 						document.getElementById('myForm').reset();
