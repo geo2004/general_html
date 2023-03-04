@@ -144,7 +144,7 @@ button[type="submit"]:hover {
 					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
 					data: JSON.stringify(formData),
 					contentType: "application/json",
-					dataType: 'jsonp',
+					dataType: 'json',
 					success: function (data) {
 						alert('Data has been submitted successfully');
 						document.getElementById('myForm').reset();
