@@ -137,12 +137,13 @@ button[type="submit"]:hover {
 						"nama_rusun": $('#nama_rusun').val()
 					}
 				};
-var url = 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures';
-				// Convert the URL if needed
-    url = convertUrl(url);
+var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+var apiUrl = 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures';
+var url = proxyUrl + apiUrl;
+
 				$.ajax({
 					type: 'POST',
-					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
+					url: 'url',
 					data: JSON.stringify(formData),
 					contentType: "application/json",
 					dataType: 'json',
