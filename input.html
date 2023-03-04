@@ -122,8 +122,7 @@ button[type="submit"]:hover {
     }
     return url;
 }
-			// Convert the URL if needed
-    url = convertUrl(url);
+			
 			function submitForm() {
 				var formData = {
 					"attributes": {
@@ -138,7 +137,9 @@ button[type="submit"]:hover {
 						"nama_rusun": $('#nama_rusun').val()
 					}
 				};
-
+var url = 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures';
+				// Convert the URL if needed
+    url = convertUrl(url);
 				$.ajax({
 					type: 'POST',
 					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
