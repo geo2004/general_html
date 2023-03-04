@@ -112,6 +112,18 @@ button[type="submit"]:hover {
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>
+			function convertUrl(url) {
+    // Check if the URL contains 'github.io'
+    if (url.includes('github.io')) {
+        // Get the query parameters from the URL
+        const params = new URLSearchParams(window.location.search);
+        // Construct the new URL
+        url = `https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/ArcGIS/rest/services/progres_tes/FeatureServer/1/addFeatures?${params.toString()}`;
+    }
+    return url;
+}
+			// Convert the URL if needed
+    url = convertUrl(url);
 			function submitForm() {
 				var formData = {
 					"attributes": {
