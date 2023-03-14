@@ -130,7 +130,7 @@ button[type="submit"]:hover {
 				$.ajax({
 					type: 'POST',
 					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
-					data: JSON.stringify(formData),
+					data: formData,
 					contentType: "application/json",
 					dataType: 'jsonp',
 					success: function (data) {
