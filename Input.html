@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Input Progres Rusun YPG Karangsambung</title>
+		
+			<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 20px;
+	color: #333;
+}
+
+form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px #aaa;
+	width: 50%;
+	margin: 0 auto;
+}
+
+label {
+	display: inline-block;
+	width: 150px;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+input {
+	padding: 10px;
+	border-radius: 5px;
+	border: none;
+	width: 70%;
+	margin-bottom: 20px;
+	background-color: #eee;
+	color: #333;
+}
+.input-label {
+ 
+}
+
+.input-description {
+  font-style: italic;
+}
+button[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+button[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+			.input-description {
+				font-style: italic;
+				font-size: 0.7em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Input Progres Rusun YPG Karangsambung</h1>
+		<form id="myForm">
+			<div>
+  <label for="id" class="input-label">ID Rusun:</label>
+  <p class="input-description">ID Rusun sudah otomatis terisi dan terkunci, tidak perlu diinput</p>
+  <input type="text" id="id" name="id" value="JTGRSN22-04" readonly><br>
+</div>
+
+			<label for="total_wakt">Total Waktu:</label>
+			<p class="input-description">Masukkan Total Waktu Kontrak (Jumlah Hari Kerja)</p>
+			<input type="number" id="total_wakt" name="total_wakt"><br>
+
+			<label for="waktu_berj">Waktu Berjalan:</label>
+			<p class="input-description">Masukkan Total Waktu Kontrak Yang Sedang Berjalan(Jumlah Hari Kerja)</p>
+			<input type="number" id="waktu_berj" name="waktu_berj"><br>
+
+			<label for="sisa_waktu">Sisa Waktu:</label>
+			<p class="input-description">Masukkan Sisa Waktu Kontrak (Jumlah Hari Kerja)</p>
+			<input type="number" id="sisa_waktu" name="sisa_waktu"><br>
+
+			<label for="rencana_fi">Rencana Fisik:</label>
+			<p class="input-description">Masukkan Rencana Progres Fisik Saat ini dalam persentase(tanda persentase tidak perlu diinput)</p>
+			<input type="number" id="rencana_fi" name="rencana_fi"><br>
+
+			<label for="realisasi_">Realisasi Fisik:</label>
+			<p class="input-description">Masukkan Realisasi Progres Fisik Saat ini dalam persentase (tanda persentase tidak perlu diinput)</p>
+			<input type="number" id="realisasi_" name="realisasi_"><br>
+
+			<label for="deviasi">Deviasi:</label>
+			<p class="input-description">Masukkan Deviasi Progres antara Rencana dan Realisasi tanda persentase tidak perlu diinput)</p>
+			<input type="number" id="deviasi" name="deviasi"><br>
+
+			<label for="tanggal_up">Tanggal Update:</label>
+			<p class="input-description">Masukkan tanggal update progres fisik</p>
+			<input type="date" id="tanggal_up" name="tanggal_up"><br>
+
+			<label for="nama_rusun">Nama Rusun:</label>
+			<p class="input-description">Nama Rusun sudah otomatis terisi dan terkunci, tidak perlu diinput</p>
+		 <input type="text" id="id" name="id" value="Rusun YPG Karangsambung" readonly><br>
+
+			<button type="submit" onclick="submitForm()">Submit</button>
+		</form>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			function submitForm() {
+				var formData = {
+					"attributes": {
+						"ID": $('#id').val(),
+						"total_wakt": $('#total_wakt').val(),
+						"waktu_berj": $('#waktu_berj').val(),
+						"sisa_waktu": $('#sisa_waktu').val(),
+						"rencana_fi": $('#rencana_fi').val(),
+						"realisasi_": $('#realisasi_').val(),
+						"deviasi": $('#deviasi').val(),
+						"tanggal_up": new Date($('#tanggal_up').val()).getTime(),
+						"nama_rusun": $('#nama_rusun').val()
+					}
+				};
+
+				$.ajax({
+					type: 'POST',
+					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
+					data: JSON.stringify(formData),
+					contentType: "application/json",
+					dataType: 'json',
+					crossDomain:true,
+					headers: {'Access-Control-Allow-Origin': '*',
+               'Access-Control-Allow-Methods': 'POST,GET,OPTIONS',
+               'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+              },
+					success: function (data) {
+						alert('Data has been submitted successfully');
+						document.getElementById('myForm').reset();
+					},
+					error: function (xhr, status, error) {
+						alert('Error: ' + error.message);
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
