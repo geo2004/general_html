@@ -129,6 +129,9 @@ button[type="submit"]:hover {
 
 				$.ajax({
 					type: 'POST',
+					headers: {
+    "Access-Control-Allow-Origin": "*"
+  },
 					url: 'https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1/addFeatures',
 					data: formData,
 					contentType: "application/json",
