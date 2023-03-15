@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Input Progres Rusun YPG Karangsambung</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.21/"></script>
+    <style>
+	body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 20px;
+	color: #333;
+}
+      #form-container {
+        padding: 20px;
+        border: 3px solid #ccc;
+		border-radius: 5px;
+        margin: 20px auto;
+        max-width: 600px;
+      }
+    label {
+	display: inline-block;
+	width: 150px;
+	margin-bottom: 10px;
+	color: #333;
+}
+      input[type="text"] {
+        display: block;
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ccc;
+		border-radius: 5px;
+        margin-bottom: 20px;
+		
+      }
+	  .input-description {
+  font-style: italic;
+  font-size: 10pt;
+}
+      button {
+        background-color: #0079c1;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      button:hover {
+        background-color: #005ea1;
+      }
+    </style>
+  </head>
+  <body>
+  		<h1>Input Progres Rusun YPG Karangsambung</h1>
+
+    <div id="form-container">
+      <form id="form">
+        <label for="id" class="input-label">ID Rusun:</label>
+  <p class="input-description">ID Rusun sudah otomatis terisi dan terkunci, tidak perlu diinput</p>
+  <input type="text" id="id" name="id" value="JTGRSN22-04" readonly><br>
+
+      <label for="total_wakt">Total Waktu:</label>
+			<p class="input-description">Masukkan Total Waktu Kontrak (Jumlah Hari Kerja)</p>
+			<input type="text" id="total_wakt" name="total_wakt"><br>
+			
+			<label for="waktu_berj">Waktu Berjalan:</label>
+			<p class="input-description">Masukkan Total Waktu Kontrak Yang Sedang Berjalan(Jumlah Hari Kerja)</p>
+			<input type="text" id="waktu_berj" name="waktu_berj"><br>
+
+			<label for="sisa_waktu">Sisa Waktu:</label>
+			<p class="input-description">Masukkan Sisa Waktu Kontrak (Jumlah Hari Kerja)</p>
+			<input type="text" id="sisa_waktu" name="sisa_waktu"><br>
+
+			<label for="rencana_fi">Rencana Fisik:</label>
+			<p class="input-description">Masukkan Rencana Progres Fisik Saat ini dalam persentase(tanda persentase tidak perlu diinput)</p>
+			<input type="text" id="rencana_fi" name="rencana_fi"><br>
+
+			<label for="realisasi_">Realisasi Fisik:</label>
+			<p class="input-description">Masukkan Realisasi Progres Fisik Saat ini dalam persentase (tanda persentase tidak perlu diinput)</p>
+			<input type="text" id="realisasi_" name="realisasi_"><br>
+
+			<label for="deviasi">Deviasi:</label>
+			<p class="input-description">Masukkan Deviasi Progres antara Rencana dan Realisasi tanda persentase tidak perlu diinput)</p>
+			<input type="text" id="deviasi" name="deviasi"><br>
+
+			<label for="tanggal_up">Tanggal Update:</label>
+			<p class="input-description">Masukkan tanggal update progres fisik</p>
+			<input type="date" id="tanggal_up" name="tanggal_up"><br><br><br>
+
+			<label for="nama_rusun">Nama Rusun:</label>
+			<p class="input-description">Nama Rusun sudah otomatis terisi dan terkunci, tidak perlu diinput</p>
+		 <input type="text" id="nama_rusun" name="nama_rusun" value="Rusun YPG Karangsambung" readonly><br>
+
+        <button type="submit">Add Attribute</button>
+      </form>
+    </div>
+    <script>
+      require([
+        "esri/WebMap",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/tasks/support/Query",
+        "esri/tasks/QueryTask",
+      ], function (WebMap, MapView, FeatureLayer, Query, QueryTask) {
+        var featureLayerUrl =
+          "https://services-ap1.arcgis.com/p2UXWyaOSPcjxuJd/arcgis/rest/services/progres_tes/FeatureServer/1";
+
+        var queryTask = new QueryTask({
+          url: featureLayerUrl,
+        });
+
+        var query = new Query({
+          where: "1=1",
+          outFields: ["*"],
+          returnGeometry: false,
+        });
+
+        var form = document.getElementById("form");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var formData = new FormData(event.target);
+
+          var id = formData.get("id");
+          var waktu_berj = formData.get("waktu_berj");
+		  var sisa_waktu = formData.get("sisa_waktu");
+		  var rencana_fi = formData.get("rencana_fi");
+		  var realisasi_ = formData.get("realisasi_");
+		  var deviasi = formData.get("deviasi");
+		  var tanggal_up = formData.get("tanggal_up");
+		  var nama_rusun = formData.get("nama_rusun");
+		  
+
+          var attributes = {
+            id: id,
+            waktu_berj: waktu_berj,
+			sisa_waktu: sisa_waktu,
+			rencana_fi: rencana_fi,
+			realisasi_: realisasi_,
+			deviasi: deviasi,
+			tanggal_up: tanggal_up,
+			nama_rusun: nama_rusun,
+          };
+
+          query.where = "1=1";
+          query.outFields = ["*"];
+          query.returnGeometry = false;
+          queryTask.execute(query).then(function (result) {
+            var feature = result.features[0];
+            feature.attributes = attributes;
+
+            var featureLayer = new FeatureLayer({
+              url: featureLayerUrl,
+            });
+
+            featureLayer
+              .applyEdits({
+                updateFeatures: [feature],
+              })
+              .then(function () {
+                alert("Attribute added successfully");
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
