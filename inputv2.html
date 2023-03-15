@@ -8,52 +8,79 @@
     <script src="https://js.arcgis.com/4.21/"></script>
     <style>
 	body {
-	font-family: Arial, sans-serif;
-	background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  background-image: url('https://images.unsplash.com/photo-1506260401874-4c433b73b1ad');
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
-	text-align: center;
-	margin-top: 20px;
-	color: #333;
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
-      #form-container {
-        padding: 20px;
-        border: 3px solid #ccc;
-		border-radius: 5px;
-        margin: 20px auto;
-        max-width: 600px;
-      }
-    label {
-	display: inline-block;
-	width: 150px;
-	margin-bottom: 10px;
-	color: #333;
+
+#form-container {
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-      input[type="text"] {
-        display: block;
-        width: 90%;
-        padding: 10px;
-        border: 1px solid #ccc;
-		border-radius: 5px;
-        margin-bottom: 20px;
-		
-      }
-	  .input-description {
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  display: block;
+  width: 90%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.input-description {
   font-style: italic;
   font-size: 10pt;
 }
-      button {
-        background-color: #0079c1;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-      button:hover {
-        background-color: #005ea1;
-      }
+
+button {
+  background-color: #0079c1;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005ea1;
+}
+
+@media (max-width: 768px) {
+  #form-container {
+    padding: 10px;
+  }
+  label {
+    width: 100%;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -161,7 +188,7 @@ h1 {
 
             featureLayer
               .applyEdits({
-                updateFeatures: [feature],
+                addFeatures: [feature],
               })
               .then(function () {
                 alert("Attribute added successfully");
